@@ -35,4 +35,5 @@ def bcv_scraper():
         print("Error interno:", str(e))
         return jsonify({"status": "error", "data": {"error_id": "500", "message": "Error interno", "detalle": str(e)}}), 500
 
-if __name__ == '__main
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
