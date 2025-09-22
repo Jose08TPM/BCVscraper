@@ -1,3 +1,4 @@
+
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, jsonify
@@ -11,11 +12,11 @@ def scrape_bcv():
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
-        usd_element = soup.find("div", class_="col-sm-6 col-xs-6 centrado", text=lambda t: t and "Dólar" in t)
-        eur_element = soup.find("div", class_="col-sm-6 col-xs-6 centrado", text=lambda t: t and "Euro" in t)
+        usd_element = soup.find(id="dolar")
+        eur_element = soup.find(id="euro")
 
-        usd_value = usd_element.find_next("strong").text.strip() if usd_element else "N/A"
-        eur_value = eur_element.find_next("strong").text.strip() if eur_element else "N/A"
+        usd_value = usd_element.get_text(strip=True) if usd_element else "N/A"
+        eur_value = eur_element.get_text(strip=True) if eur_element else "N/A"
 
         return {"USD": usd_value, "EUR": eur_value}
 
@@ -28,3 +29,4 @@ def home():
 
 if __name__ == "__main__":
     app.run(port=3000)
+
