@@ -1,0 +1,6 @@
+git checkout --orphan gh-pages
+git rm -rf .
+echo '{}' > data.json  # o tu contenido real
+git add data.json
+git commit -m "Publicar data.json"
+git push origin gh-pages
